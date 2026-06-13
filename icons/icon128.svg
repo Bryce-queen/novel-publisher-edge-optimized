@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect width="128" height="128" rx="20" fill="#0f3460"/>
+  <g transform="translate(64,64)">
+    <!-- Left page -->
+    <path d="M-4,-36 L-4,36 L-48,28 L-48,-28 Z" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+    <!-- Right page -->
+    <path d="M4,-36 L4,36 L48,28 L48,-28 Z" fill="none" stroke="white" stroke-width="4" stroke-linejoin="round"/>
+    <!-- Book spine -->
+    <line x1="0" y1="-36" x2="0" y2="36" stroke="white" stroke-width="3"/>
+    <!-- Left page lines -->
+    <line x1="-36" y1="-16" x2="-12" y2="-9.6" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="-36" y1="0" x2="-12" y2="6.4" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="-36" y1="16" x2="-12" y2="22.4" stroke="white" stroke-width="2" opacity="0.6"/>
+    <!-- Right page lines -->
+    <line x1="12" y1="-9.6" x2="36" y2="-16" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="12" y1="6.4" x2="36" y2="0" stroke="white" stroke-width="2" opacity="0.6"/>
+    <line x1="12" y1="22.4" x2="36" y2="16" stroke="white" stroke-width="2" opacity="0.6"/>
+  </g>
+</svg>

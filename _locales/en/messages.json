@@ -1,0 +1,78 @@
+{
+  "extName": {
+    "message": "Novel Publisher Assistant",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Extract chapters from Tencent Docs and publish to Fanqie Novel platform",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "Novel Publisher",
+    "description": "Popup title"
+  },
+  "statusReady": {
+    "message": "Ready",
+    "description": "Status ready"
+  },
+  "statusExtracting": {
+    "message": "Extracting content...",
+    "description": "Status extracting"
+  },
+  "statusPublishing": {
+    "message": "Publishing...",
+    "description": "Status publishing"
+  },
+  "statusCompleted": {
+    "message": "Completed",
+    "description": "Status completed"
+  },
+  "btnExtract": {
+    "message": "Extract Chapters",
+    "description": "Button extract"
+  },
+  "btnPublish": {
+    "message": "Publish Chapters",
+    "description": "Button publish"
+  },
+  "btnSettings": {
+    "message": "Settings",
+    "description": "Button settings"
+  },
+  "noChaptersFound": {
+    "message": "No chapters found",
+    "description": "No chapters found"
+  },
+  "chaptersFound": {
+    "message": "Found $count$ chapters",
+    "description": "Chapters found",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "10"
+      }
+    }
+  },
+  "publishSuccess": {
+    "message": "Published $count$ chapters successfully",
+    "description": "Publish success",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "publishFailed": {
+    "message": "Publish failed",
+    "description": "Publish failed"
+  },
+  "needLoginFanqie": {
+    "message": "Please login to Fanqie Novel first",
+    "description": "Need login fanqie"
+  },
+  "needOpenTencentDoc": {
+    "message": "Please open Tencent Docs",
+    "description": "Need open tencent doc"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "novel-publisher-edge",
+  "version": "1.0.0",
+  "description": "一个浏览器扩展，用于从腾讯文档自动提取小说章节并发布到番茄小说平台。",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node shared/parser.test.cjs",
+    "lint": "eslint background/background.js popup/popup.js options/options.js content_scripts/fanqie_editor.js content_scripts/fanqie_manager.js content_scripts/tencent_doc.js shared/*.js",
+    "check": "node --check background/background.js && node --check popup/popup.js && node --check options/options.js && node --check content_scripts/fanqie_editor.js && node --check content_scripts/fanqie_manager.js && node --check content_scripts/tencent_doc.js && node --check shared/storage.js && node --check shared/parser.js && node --check shared/utils.js && node --check shared/fanqie-adapter.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^10.5.0",
+    "globals": "^17.6.0"
+  }
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小说发布助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- 1. 顶部栏 -->
+    <header class="header">
+      <div class="header-left">
+        <svg class="header-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          <line x1="8" y1="7" x2="16" y2="7"/>
+          <line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+        <h1 class="header-title" data-i18n="app.title">小说发布助手</h1>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" id="btnRefreshLogin" title="刷新登录状态" data-i18n-title="btn.refreshLogin">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+          </svg>
+        </button>
+        <button class="btn-fanqie-login" id="btnFanqieLogin" title="番茄小说作家后台" data-i18n-title="btn.fanqieLogin">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+          <span id="fanqieLoginText" data-i18n="btn.fanqieLogin">番茄登录</span>
+        </button>
+        <button class="btn-icon" id="btnSettings" title="设置" data-i18n-title="btn.settings">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+        <button class="btn-icon" id="btnSwitchLang" title="切换语言">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- 2. 快捷操作区 -->
+    <div class="quick-actions">
+      <div class="quick-action-card" id="quickFanqie">
+        <div class="quick-action-icon fanqie">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+            <polyline points="10 17 15 12 10 7"/>
+            <line x1="15" y1="12" x2="3" y2="12"/>
+          </svg>
+        </div>
+        <span class="quick-action-label" data-i18n="quick.fanqie">番茄平台</span>
+        <span class="quick-action-desc" id="quickFanqieDesc" data-i18n="quick.fanqie.desc">作者后台</span>
+      </div>
+      <div class="quick-action-card" id="quickDoc">
+        <div class="quick-action-icon doc">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <span class="quick-action-label" data-i18n="quick.doc">腾讯文档</span>
+        <span class="quick-action-desc">打开复制</span>
+      </div>
+      <div class="quick-action-card" id="quickUpload">
+        <div class="quick-action-icon upload">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <span class="quick-action-label" data-i18n="quick.upload">上传文件</span>
+        <span class="quick-action-desc">txt/docx/zip</span>
+      </div>
+    </div>
+
+    <!-- 3. API 配置提示 -->
+    <div class="api-notice" id="apiNotice" style="display:none">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <span>配置腾讯文档 API 可自动提取内容</span>
+      <button class="api-notice-btn" id="btnGoSettings">前往配置</button>
+      <button class="api-notice-close" id="btnCloseApiNotice">&times;</button>
+    </div>
+
+    <!-- 统计数据面板 -->
+    <div class="stats-panel" id="statsPanel">
+      <div class="stat-card">
+        <div class="stat-number" id="statTotalWorks">0</div>
+        <div class="stat-label" data-i18n="stats.works">作品</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statTotalChapters">0</div>
+        <div class="stat-label" data-i18n="stats.chapters">章节</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statPublishedCount">0</div>
+        <div class="stat-label" data-i18n="stats.published">已发布</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="statTodayCount">0</div>
+        <div class="stat-label" data-i18n="stats.today">今日</div>
+      </div>
+    </div>
+
+    <!-- 4. 作品管理列表 -->
+    <section class="works-section">
+      <div class="works-header">
+        <h2 class="section-title" data-i18n="works.title">我的作品</h2>
+        <button class="btn-add-work" id="btnAddWork" title="添加新作品" data-i18n-title="works.add">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          </svg>
+          <span data-i18n="btn.add">添加</span>
+        </button>
+      </div>
+
+      <!-- 空状态 -->
+      <div class="empty-state" id="worksEmpty">
+        <div class="empty-icon">📚</div>
+        <p data-i18n="works.empty">还没有添加作品</p>
+        <p class="empty-hint" data-i18n="works.empty.hint">点击上方按钮添加你的第一本小说</p>
+      </div>
+
+      <!-- 作品卡片列表 -->
+      <div class="works-list" id="worksList"></div>
+    </section>
+
+    <!-- AI 辅助创作（扩展版） -->
+    <section class="ai-section" id="aiSection">
+      <div class="ai-section-header">
+        <div class="ai-section-title">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          <span data-i18n="ai.title">AI 写作助手</span>
+        </div>
+        <span class="ai-usage-badge" id="aiUsageBadge">剩余 15/15</span>
+      </div>
+
+      <!-- AI Tab 切换 -->
+      <div class="ai-tabs">
+        <button class="ai-tab active" data-ai-tab="outline" id="tabOutline" data-i18n="ai.tab.outline">📝 大纲</button>
+        <button class="ai-tab" data-ai-tab="continue" id="tabContinue" data-i18n="ai.tab.continue">✍️ 续写</button>
+        <button class="ai-tab" data-ai-tab="polish" id="tabPolish" data-i18n="ai.tab.polish">✨ 润色</button>
+        <button class="ai-tab" data-ai-tab="title" id="tabTitle" data-i18n="ai.tab.title">🏷️ 标题</button>
+      </div>
+
+      <div class="ai-section-body">
+        <!-- 大纲生成面板 -->
+        <div class="ai-panel active" id="panelOutline">
+          <p class="ai-panel-hint">基于当前章节内容，AI 为下一章生成3个不同方向的大纲</p>
+          <button class="btn-ai-action" id="btnGenerateOutline">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span data-i18n="ai.generate">生成大纲</span>
+          </button>
+          <div class="ai-result" id="resultOutline"></div>
+        </div>
+
+        <!-- 续写面板 -->
+        <div class="ai-panel" id="panelContinue">
+          <p class="ai-panel-hint">基于章节末尾内容，AI 续写 500-1000 字</p>
+          <button class="btn-ai-action" id="btnGenerateContinue">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            <span data-i18n="ai.continue">开始续写</span>
+          </button>
+          <div class="ai-result" id="resultContinue"></div>
+        </div>
+
+        <!-- 润色面板 -->
+        <div class="ai-panel" id="panelPolish">
+          <p class="ai-panel-hint">优化选中章节的文笔和表达</p>
+          <button class="btn-ai-action" id="btnAiPolish">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span data-i18n="ai.polish">润色优化</span>
+          </button>
+          <div class="ai-result" id="resultPolish"></div>
+        </div>
+
+        <!-- 标题面板 -->
+        <div class="ai-panel" id="panelTitle">
+          <p class="ai-panel-hint">为选中章节生成吸引人的标题</p>
+          <button class="btn-ai-action" id="btnAiTitle">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
+            <span data-i18n="ai.titleGen">生成标题</span>
+          </button>
+          <div class="ai-result" id="resultTitle"></div>
+        </div>
+
+        <!-- 激活码输入（未激活时显示） -->
+        <div class="ai-activation-row" id="aiActivationRow">
+          <input type="text" id="aiActivationCode" data-i18n-placeholder="ai.activate.placeholder" placeholder="输入激活码解锁无限使用">
+          <button class="btn-ai-config" id="btnAiActivate" data-i18n="btn.activate">激活</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 选中作品的操作面板（点击作品卡片后展开） -->
+    <section class="card action-card" id="actionPanel" style="display:none">
+      <div class="action-panel-header">
+        <h3 class="action-panel-title" id="actionPanelTitle">作品操作</h3>
+        <button class="btn-icon btn-close-panel" id="btnClosePanel" title="关闭" data-i18n-title="btn.close">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 作品统计 -->
+      <div class="work-stats" id="workStats">
+        <div class="stat-item">
+          <span class="stat-value" id="statVolumes">-</span>
+          <span class="stat-label">分卷</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statTotal">-</span>
+          <span class="stat-label">总章节</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statPublished">-</span>
+          <span class="stat-label">已发布</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="statPending">-</span>
+          <span class="stat-label">待发布</span>
+        </div>
+      </div>
+
+      <!-- 文档链接提取 -->
+      <div class="input-row">
+        <input type="text" id="docUrlInput" placeholder="粘贴腾讯文档链接，自动提取章节">
+        <button class="btn-sm primary" id="btnExtractInline">提取</button>
+      </div>
+      <div class="doc-url-hint" id="docUrlHint"></div>
+
+      <!-- 文件上传 -->
+      <div class="file-upload-row" id="fileUploadRow">
+        <div class="file-upload-btn" id="fileUploadBtn">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>选择文件</span>
+        </div>
+        <span class="file-upload-formats">.txt / .docx / .zip</span>
+        <input type="file" id="zipFileInput" accept=".txt,.docx,.zip" style="display:none">
+      </div>
+
+      <!-- 发布按钮 -->
+      <div class="action-buttons">
+        <button class="btn btn-success btn-full" id="btnPublish" disabled>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13"/><path d="M22 2L15 22L11 13L2 9L22 2Z"/>
+          </svg>
+          发布选中章节
+        </button>
+        <button class="btn btn-warning btn-full" id="btnPause" style="display:none">暂停发布</button>
+      </div>
+    </section>
+
+    <!-- 6. 粘贴提取（默认隐藏） -->
+    <div class="paste-fallback" id="pasteFallback" style="display:none">
+      <textarea id="pasteFallbackTextarea" placeholder="在此粘贴文档内容（腾讯文档中 Ctrl+A 全选 → Ctrl+C 复制）"></textarea>
+      <button class="btn btn-primary btn-full" id="btnPasteExtract">从粘贴内容提取章节</button>
+    </div>
+
+    <!-- 7. 章节列表 -->
+    <section class="card chapters-card" id="chaptersCard" style="display:none">
+      <div class="batch-actions-bar" id="batchActionsBar">
+        <div class="batch-left">
+          <input type="checkbox" id="selectAll" title="全选">
+          <span class="batch-count" id="batchCount">已选 0/0 章</span>
+        </div>
+        <div class="batch-right">
+          <button class="batch-btn" id="btnBatchSelectAll" title="全选" data-i18n="chapters.select.all">全选</button>
+          <button class="batch-btn" id="btnBatchInverse" title="反选" data-i18n="chapters.select.inverse">反选</button>
+          <button class="batch-btn" id="btnBatchClear" title="清空选择" data-i18n="chapters.select.clear">清空</button>
+          <select class="batch-btn" id="btnStatusFilter" title="按状态筛选">
+            <option value="all">全部</option>
+            <option value="pending">待发布</option>
+            <option value="published">已发布</option>
+            <option value="error">失败</option>
+            <option value="dry-run">演练</option>
+          </select>
+          <div class="batch-divider"></div>
+          <button class="batch-btn batch-btn-warning" id="btnRetryFailed" title="重试失败章节" style="display:none">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+            <span>重试失败</span>
+          </button>
+          <button class="batch-btn batch-btn-primary" id="btnBatchPublish" title="批量发布">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+            <span data-i18n="chapters.publish.selected">发布选中</span>
+          </button>
+        </div>
+      </div>
+      <div class="chapters-list" id="chaptersList"></div>
+      <div class="chapters-footer">
+        <span id="selectedInfo">已选 0 章，共 0 字</span>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Toast 容器 -->
+  <div id="toastContainer"></div>
+
+  <!-- 共享模块（在 popup.js 之前加载） -->
+  <script src="../shared/storage.js"></script>
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/parser.js"></script>
+  <script src="../shared/utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

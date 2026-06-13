@@ -1,0 +1,78 @@
+{
+  "extName": {
+    "message": "小说发布助手",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "从腾讯文档自动提取章节内容并发布到番茄小说平台",
+    "description": "Extension description"
+  },
+  "popupTitle": {
+    "message": "小说发布助手",
+    "description": "Popup title"
+  },
+  "statusReady": {
+    "message": "就绪",
+    "description": "Status ready"
+  },
+  "statusExtracting": {
+    "message": "正在提取内容...",
+    "description": "Status extracting"
+  },
+  "statusPublishing": {
+    "message": "正在发布...",
+    "description": "Status publishing"
+  },
+  "statusCompleted": {
+    "message": "完成",
+    "description": "Status completed"
+  },
+  "btnExtract": {
+    "message": "提取章节",
+    "description": "Button extract"
+  },
+  "btnPublish": {
+    "message": "发布章节",
+    "description": "Button publish"
+  },
+  "btnSettings": {
+    "message": "设置",
+    "description": "Button settings"
+  },
+  "noChaptersFound": {
+    "message": "未找到章节",
+    "description": "No chapters found"
+  },
+  "chaptersFound": {
+    "message": "找到 $count$ 个章节",
+    "description": "Chapters found",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "10"
+      }
+    }
+  },
+  "publishSuccess": {
+    "message": "成功发布 $count$ 章",
+    "description": "Publish success",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "publishFailed": {
+    "message": "发布失败",
+    "description": "Publish failed"
+  },
+  "needLoginFanqie": {
+    "message": "请先登录番茄小说",
+    "description": "Need login fanqie"
+  },
+  "needOpenTencentDoc": {
+    "message": "请打开腾讯文档",
+    "description": "Need open tencent doc"
+  }
+}

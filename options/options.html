@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小说发布助手 - 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 顶部标题区 -->
+    <header class="header">
+      <h1 data-i18n="app.title">小说发布助手</h1> - <span data-i18n="btn.settings">设置</span>
+      <p class="header-desc">按以下步骤完成配置，即可开始使用</p>
+    </header>
+
+    <main class="main">
+      <!-- 步骤引导区 -->
+      <section class="setup-guide" id="setupGuide">
+        <!-- 水平步骤进度条 -->
+        <div class="step-progress-bar">
+          <div class="step-progress-item" data-toggle="step1" id="stepProgress1">
+            <div class="step-progress-dot" id="stepProgressDot1">1</div>
+            <span class="step-progress-label" data-i18n="setup.api">API 配置</span>
+          </div>
+          <div class="step-progress-line" id="stepProgressLine1"></div>
+          <div class="step-progress-item" data-toggle="step2" id="stepProgress2">
+            <div class="step-progress-dot" id="stepProgressDot2">2</div>
+            <span class="step-progress-label" data-i18n="setup.fanqie">番茄平台</span>
+          </div>
+          <div class="step-progress-line" id="stepProgressLine2"></div>
+          <div class="step-progress-item" data-toggle="step3" id="stepProgress3">
+            <div class="step-progress-dot" id="stepProgressDot3">3</div>
+            <span class="step-progress-label" data-i18n="setup.global">全局设置</span>
+          </div>
+        </div>
+
+        <!-- 步骤内容面板 -->
+        <div class="setup-panels">
+          <!-- 步骤 1：API 配置 -->
+          <div class="setup-step" id="step1">
+            <div class="step-header" data-toggle="step1">
+              <div class="step-indicator" id="step1Indicator">1</div>
+              <div class="step-info">
+                <h3 class="step-title">配置腾讯文档 API（推荐）</h3>
+                <p class="step-desc" id="step1Desc" data-i18n="setup.api.desc">配置后可直接读取文档内容，无需手动复制</p>
+              </div>
+              <span class="step-status" id="step1Status">未配置</span>
+              <svg class="step-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="step-body" id="step1Body">
+              <p class="step-help-text">
+                前往 <a href="https://docs.qq.com/open/" target="_blank">腾讯文档开放平台</a> 注册应用，获取以下信息：
+              </p>
+              <div class="form-group">
+                <label for="tencentDocClientId">Client ID <span class="required">*</span></label>
+                <div class="input-with-actions">
+                  <input type="text" id="tencentDocClientId" placeholder="从开放平台获取">
+                  <button class="input-action-btn" id="btnCopyClientId" title="复制">复制</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tencentDocAccessToken">Access Token <span class="required">*</span></label>
+                <div class="input-with-actions">
+                  <input type="password" id="tencentDocAccessToken" placeholder="从开放平台获取">
+                  <button class="input-action-btn" id="btnToggleToken" title="显示/隐藏">显示</button>
+                  <button class="input-action-btn" id="btnCopyToken" title="复制">复制</button>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="tencentDocOpenId">Open ID <span class="required">*</span></label>
+                <div class="input-with-actions">
+                  <input type="text" id="tencentDocOpenId" placeholder="从开放平台获取">
+                  <button class="input-action-btn" id="btnCopyOpenId" title="复制">复制</button>
+                </div>
+              </div>
+              <div class="step-actions">
+                <button class="btn btn-secondary" id="btnTestApi" data-i18n="btn.test">测试连接</button>
+                <span class="form-hint" id="apiTestResult"></span>
+              </div>
+              <p class="step-skip">
+                <a href="javascript:void(0)" id="skipApiLink">跳过此步骤，直接上传文件或手动复制</a>
+              </p>
+              <div class="step-alternatives" id="step1Alternatives">
+                <div class="alt-option" data-action="open-fanqie-login">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                    <polyline points="10 17 15 12 10 7"/>
+                    <line x1="15" y1="12" x2="3" y2="12"/>
+                  </svg>
+                  <div>
+                    <div class="alt-title">登录番茄小说平台</div>
+                    <div class="alt-desc" id="fanqieLoginStatus">点击检测登录状态</div>
+                  </div>
+                </div>
+                <div class="alt-option" data-action="open-file-upload">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                  <div>
+                    <div class="alt-title">上传文件提取章节</div>
+                    <div class="alt-desc">支持 .txt / .docx / .zip，拖拽或点击上传</div>
+                  </div>
+                </div>
+                <div class="alt-option" data-action="open-tencent-doc">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                  </svg>
+                  <div>
+                    <div class="alt-title">打开腾讯文档</div>
+                    <div class="alt-desc">手动复制文档内容后粘贴</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 步骤 2：登录番茄平台 -->
+          <div class="setup-step" id="step2">
+            <div class="step-header" data-toggle="step2">
+              <div class="step-indicator" id="step2Indicator">2</div>
+              <div class="step-info">
+                <h3 class="step-title">登录番茄平台</h3>
+                <p class="step-desc" id="step2Desc" data-i18n="setup.fanqie.desc">登录后填写作品 ID 关联你的小说</p>
+              </div>
+              <span class="step-status" id="step2Status">未添加</span>
+              <svg class="step-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="step-body" id="step2Body">
+              <!-- 番茄登录状态检测区 -->
+              <div class="fanqie-login-section">
+                <div class="alt-option" data-action="open-fanqie-login" id="fanqieLoginCard">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                    <polyline points="10 17 15 12 10 7"/>
+                    <line x1="15" y1="12" x2="3" y2="12"/>
+                  </svg>
+                  <div>
+                    <div class="alt-title">番茄小说登录状态</div>
+                    <div class="alt-desc" id="fanqieLoginStatusStep2">点击检测登录状态</div>
+                  </div>
+                </div>
+                <div class="step-actions" style="margin-top:12px">
+                  <button class="btn btn-secondary" id="btnGoFanqieLogin">前往番茄小说登录</button>
+                </div>
+              </div>
+
+              <!-- 已添加的作品列表 -->
+              <div class="works-list" id="worksList"></div>
+
+              <!-- 添加作品表单 -->
+              <div class="inline-form" id="addWorkForm">
+                <h4>添加新作品</h4>
+                <div class="form-group">
+                  <label for="workFanqieUrl">作品 ID <span class="required">*</span></label>
+                  <input type="text" id="workFanqieUrl" placeholder="从番茄小说章节管理 URL 中获取，如 7356123456789">
+                  <span class="form-error" id="workFanqieUrlError"></span>
+                </div>
+                <div class="form-group">
+                  <label for="workName">作品名称</label>
+                  <input type="text" id="workName" placeholder="留空则自动获取">
+                </div>
+                <div class="form-row">
+                  <div class="form-group form-group-half">
+                    <label for="workChaptersPerDay">每日发布章节数</label>
+                    <input type="number" id="workChaptersPerDay" min="1" max="20" value="3">
+                  </div>
+                  <div class="form-group form-group-half toggle-group">
+                    <label for="workAiGenerated">AI生成内容</label>
+                    <div class="toggle-switch">
+                      <input type="checkbox" id="workAiGenerated" checked>
+                      <span class="toggle-slider"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="step-actions">
+                  <button class="btn btn-primary" id="btnAddWork" data-i18n="works.add">添加作品</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 步骤 3：全局设置 -->
+          <div class="setup-step" id="step3">
+            <div class="step-header" data-toggle="step3">
+              <div class="step-indicator" id="step3Indicator">3</div>
+              <div class="step-info">
+                <h3 class="step-title">全局设置</h3>
+                <p class="step-desc" id="step3Desc" data-i18n="setup.global.desc">发布行为和重试策略</p>
+              </div>
+              <span class="step-status" id="step3Status">默认</span>
+              <svg class="step-arrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+            <div class="step-body" id="step3Body">
+              <div class="settings-grid">
+                <div class="form-group toggle-group">
+                  <label for="autoCloseModals">自动关闭弹窗处理</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="autoCloseModals" checked>
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+                <div class="form-group toggle-group">
+                  <label for="autoRetry">发布失败自动重试</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="autoRetry" checked>
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="retryCount">重试次数</label>
+                  <input type="number" id="retryCount" min="0" max="10" value="2">
+                </div>
+                <div class="form-group">
+                  <label for="publishIntervalMin">发布间隔（秒）</label>
+                  <div class="form-row">
+                    <div class="form-group form-group-half">
+                      <input type="number" id="publishIntervalMin" min="5" max="120" value="30" placeholder="最小">
+                    </div>
+                    <div class="form-group form-group-half">
+                      <input type="number" id="publishIntervalMax" min="10" max="300" value="60" placeholder="最大">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="logRetentionDays">日志保留天数</label>
+                  <input type="number" id="logRetentionDays" min="1" max="90" value="30">
+                </div>
+                <div class="form-group toggle-group">
+                  <label for="confirmBeforePublish">发布前人工确认</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="confirmBeforePublish">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+                <div class="form-group toggle-group">
+                  <label for="antiDetectionMode">反检测模式（模拟人类行为）</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="antiDetectionMode" checked>
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+                <div class="form-group toggle-group">
+                  <label for="dryRunMode" title="开启后发布流程会完整执行，但在最终提交前停止，不会真正发布">演练模式（仅提取不发布）</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="dryRunMode">
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI 配置 -->
+              <div class="ai-config-section" id="aiConfigSection">
+                <h4 class="ai-config-title">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+                  </svg>
+                  AI 服务商配置
+                </h4>
+                <div class="form-group">
+                  <label>AI 服务商</label>
+                  <select class="select-work" id="aiProvider" style="max-width:300px">
+                    <option value="deepseek">DeepSeek</option>
+                    <option value="doubao">豆包（火山引擎）</option>
+                    <option value="zhipu">智谱清言</option>
+                    <option value="openai">OpenAI 兼容</option>
+                    <option value="custom">自定义</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="aiApiUrl">API 地址 <span class="required">*</span></label>
+                  <input type="url" id="aiApiUrl" placeholder="https://api.deepseek.com/v1/chat/completions">
+                </div>
+                <div class="form-group">
+                  <label for="aiApiKey">API Key <span class="required">*</span></label>
+                  <input type="password" id="aiApiKey" placeholder="sk-...">
+                </div>
+                <div class="form-group">
+                  <label for="aiModel">模型名称</label>
+                  <input type="text" id="aiModel" placeholder="deepseek-chat">
+                </div>
+                <div class="step-actions">
+                  <button class="btn btn-secondary" id="btnTestAi" data-i18n="btn.test">测试连接</button>
+                  <span class="form-hint" id="aiTestResult"></span>
+                </div>
+              </div>
+
+              <!-- 激活码管理 -->
+              <div class="activation-section" style="margin-top:20px;padding-top:16px;border-top:1px solid var(--fq-border)">
+                <h4 class="ai-config-title">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+                  </svg>
+                  激活码管理
+                </h4>
+                <div class="form-group">
+                  <label for="activationCode">输入激活码</label>
+                  <div class="form-row">
+                    <input type="text" id="activationCode" placeholder="输入激活码解锁无限 AI 使用" style="flex:1">
+                    <button class="btn btn-primary" id="btnActivate" style="width:auto;white-space:nowrap" data-i18n="btn.activate">激活</button>
+                  </div>
+                  <span class="form-hint" id="activationStatus"></span>
+                </div>
+                <div class="form-group toggle-group">
+                  <label>AI 写作助手已激活</label>
+                  <div class="toggle-switch">
+                    <input type="checkbox" id="aiActivated" disabled>
+                    <span class="toggle-slider"></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 数据加密 -->
+              <div class="form-group toggle-group">
+                <label>本地数据加密</label>
+                <div class="toggle-switch">
+                  <input type="checkbox" id="dataEncryption">
+                  <span class="toggle-slider"></span>
+                </div>
+                <span class="form-hint">开启后使用 AES-256 加密存储所有本地数据。<br>已加密数据：API 凭证（Client ID / Access Token / Open ID）。发布日志和章节缓存为明文存储。</span>
+              </div>
+
+              <!-- 免责声明 -->
+              <div class="disclaimer-box">
+                <div class="disclaimer-title">⚠️ 使用须知与免责声明</div>
+                <ul class="disclaimer-list">
+                  <li>本工具仅供辅助发布，使用者应遵守番茄小说平台的相关规则和条款</li>
+                  <li>自动发布功能可能触发平台风控，建议开启「反检测模式」并控制发布频率</li>
+                  <li>建议首次使用时手动发布前几章，确认内容格式正确后再启用自动发布</li>
+                  <li>本工具不会上传任何数据到第三方服务器，所有数据均在本地处理</li>
+                  <li>因使用本工具导致的账号风险，由使用者自行承担</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 数据管理区（折叠在底部） -->
+      <section class="card data-card">
+        <div class="data-header" id="dataHeader">
+          <h2 class="card-title">数据管理</h2>
+          <svg class="step-arrow" id="dataArrow" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="data-body" id="dataBody" style="display:none">
+          <div class="button-group">
+            <button class="btn btn-secondary" id="btnExportData" data-i18n="btn.export">导出全部数据</button>
+            <button class="btn btn-secondary" id="btnImportData" data-i18n="btn.import">导入数据</button>
+            <button class="btn btn-danger" id="btnClearData" data-i18n="btn.clear">清除所有数据</button>
+          </div>
+          <input type="file" id="importFile" accept=".json" style="display:none">
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部保存栏 -->
+    <footer class="footer-bar">
+      <button class="btn-icon" id="btnSwitchLang" title="Switch Language" style="margin-right:8px">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+        </svg>
+      </button>
+      <button class="btn btn-primary btn-save" id="btnSave" data-i18n="btn.save">保存所有设置</button>
+      <span class="save-status" id="saveStatus"></span>
+    </footer>
+  </div>
+
+  <!-- 确认对话框 -->
+  <div class="modal-overlay" id="confirmModal" style="display:none;">
+    <div class="modal modal-small">
+      <div class="modal-header">
+        <h3 id="confirmTitle">确认操作</h3>
+        <button class="modal-close" id="confirmModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmMessage"></p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-text" id="btnConfirmCancel" data-i18n="btn.cancel">取消</button>
+        <button class="btn btn-danger" id="btnConfirmOk" data-i18n="btn.confirm">确认</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 首次使用引导弹窗 -->
+  <div class="modal-overlay" id="welcomeModal" style="display:none;">
+    <div class="modal modal-welcome">
+      <div class="welcome-header">
+        <div class="welcome-icon">📖</div>
+        <h2 data-i18n="welcome.title">欢迎使用小说发布助手</h2>
+        <p class="welcome-subtitle" data-i18n="welcome.subtitle">番茄小说自动发布工具，只需 3 步即可开始使用</p>
+      </div>
+      <div class="welcome-steps">
+        <div class="welcome-step">
+          <div class="welcome-step-num">1</div>
+          <div class="welcome-step-content">
+            <div class="welcome-step-title" data-i18n="welcome.step1">配置内容来源</div>
+            <div class="welcome-step-desc" data-i18n="welcome.step1.desc">连接腾讯文档 API，或使用文件上传 / 手动粘贴</div>
+          </div>
+        </div>
+        <div class="welcome-step">
+          <div class="welcome-step-num">2</div>
+          <div class="welcome-step-content">
+            <div class="welcome-step-title" data-i18n="welcome.step2">登录番茄平台</div>
+            <div class="welcome-step-desc" data-i18n="welcome.step2.desc">登录番茄小说并填写作品 ID</div>
+          </div>
+        </div>
+        <div class="welcome-step">
+          <div class="welcome-step-num">3</div>
+          <div class="welcome-step-content">
+            <div class="welcome-step-title" data-i18n="welcome.step3">全局设置</div>
+            <div class="welcome-step-desc" data-i18n="welcome.step3.desc">发布间隔、重试策略等高级选项</div>
+          </div>
+        </div>
+      </div>
+      <div class="welcome-tips">
+        <div class="welcome-tip">
+          <span class="welcome-tip-icon">🔒</span>
+          <span data-i18n="welcome.tip1">所有数据本地存储，不上传任何第三方服务器</span>
+        </div>
+        <div class="welcome-tip">
+          <span class="welcome-tip-icon">🛡️</span>
+          <span data-i18n="welcome.tip2">内置反检测模式，模拟人类操作行为</span>
+        </div>
+        <div class="welcome-tip">
+          <span class="welcome-tip-icon">🤖</span>
+          <span data-i18n="welcome.tip3">支持 AI 续写、润色、生成标题</span>
+        </div>
+      </div>
+      <div class="welcome-footer">
+        <label class="welcome-dont-show">
+          <input type="checkbox" id="welcomeDontShow" checked>
+          <span data-i18n="welcome.dontShow">不再显示此引导</span>
+        </label>
+        <button class="btn btn-primary btn-large" id="btnWelcomeStart" data-i18n="welcome.start">开始配置</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast 通知 -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- 共享模块（在 options.js 之前加载） -->
+  <script src="../shared/storage.js"></script>
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/parser.js"></script>
+  <script src="../shared/utils.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
