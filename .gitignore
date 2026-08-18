@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+*.crx
+*.xpi
+*.zip
+
+# Dev
+.webstore-log.txt
+*.log
+
+# OS
+.DS_Store
+.AppleDouble
+._*
+
+# IDE
+.vscode/
+.idea/
